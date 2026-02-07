@@ -24,16 +24,16 @@ class Login extends Controller
             $request->session()->regenerate();
 
             // Redirect to intended page or home
+            $url = '';
+            
             $user = Auth::user();
-            $defaultUrl = '/mahasiswa'; // default mahasiswa
-
             if ($user->hasRole('admin') || $user->hasRole('superAdmin')) {
-                $defaultUrl = '/admin/dashboard';
+                $url = '/admin/dashboard';
             } elseif ($user->hasRole('dosen')) {
-                $defaultUrl = '/dosen/dashboard';
+                $url = '/dosen/dashboard';
             }
 
-            return redirect()->intended($defaultUrl)
+            return redirect()->intended($url)
                 ->with('success', 'Welcome back, '.ucfirst($user->getRoleNames()->first()).'!');
         }
 

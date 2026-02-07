@@ -21,7 +21,7 @@
         <div class="flex-1 px-4 text-center text-sm space-y-2 mt-6">
             <a href=""> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa fa-home pr-2 w-5"></i>Dashboard</p> </a>
             @can('manajemen user')
-            <a href="/admin/users"> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa fa-user pr-2 w-5"></i>User</p> </a>
+            <a href="/admin/users/"> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa fa-user pr-2 w-5"></i>User</p> </a>
             @endcan
             @can('manajemen role')
             <a href=""> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa fa-user-shield pr-2 w-5"></i>Role</p> </a>
