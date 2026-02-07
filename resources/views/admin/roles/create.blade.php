@@ -1,11 +1,11 @@
 <x-layout>
     <x-slot:title>
-        Manage - User
+        Manage - Role
     </x-slot:title>
 
     <div class="container mx-auto px-4 py-6">
         <div class="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto">
-            <h1 class="text-2xl font-bold text-gray-800 mb-6">Edit User</h1>
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Membuat Role Baru</h1>
             
             @if ($errors->any())
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
@@ -18,19 +18,18 @@
                 </div>
             @endif
 
-            <form class="space-y-4" action="{{ route('admin.users.update', $role->id) }}" method="POST">
+            <form class="space-y-4" action="{{ route('admin.create.roles.submit') }}" method="POST">
                 @csrf
-                @method('PUT')
 
                 <div>
                     <label class="block text-sm font-medium mb-1 text-gray-700">
-                        Role
+                        Nama
                     </label>
                     <input 
                         type="text"
                         class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         name="name"
-                        value="{{ old('name', $role->name) }}"
+                        value="{{ old('name') }}"
                         required
                     >
                 </div>
@@ -40,7 +39,7 @@
                         type="submit"
                         class="flex-1 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-semibold transition"
                     >
-                        Update Role
+                        Buat Role
                     </button>
                     <a 
                         href="{{ route('admin.roles.index') }}"

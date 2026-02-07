@@ -1,9 +1,10 @@
+
 <x-layout>
     <x-slot:title>
-        Dashboard - Mahasiswa
+        Dashboard - Admin
     </x-slot:title>
 
-    <div class="max-w-2xl mx-auto">
-        <h1 class="text-3xl font-bold mt-8">Welcome Mahassiswa</h1>
+    <div class="max-w-2xl">
+        <h1 class="text-3xl font-bold mt-8">Welcome Mahasiswa</h1>
     </div>
 </x-layout>
