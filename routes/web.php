@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\Auth\Register;
+use App\Http\Controllers\Mahasiswa\PengajuanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,9 +20,8 @@ Route::middleware(['auth', 'role:mahasiswa'])
             return view('mahasiswa.dashboard');
         });
 
-        Route::get('/meminta-surat', function(){
-            return view('mahasiswa.meminta-surat');
-        });
+        Route::get('/meminta-surat', [PengajuanController::class, 'index']);
+        Route::post('/meminta-surat', [PengajuanController::class, 'store'])->name('mahasiswa.meminta-surat.store');
 });
 
 Route::middleware(['auth', 'role:dosen'])->prefix('dosen')->group(function () {
