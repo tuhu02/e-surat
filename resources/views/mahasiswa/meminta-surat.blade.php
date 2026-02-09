@@ -33,12 +33,17 @@
         <div class="grid grid-cols-2 gap-6 mt-10">
             <div>
                 <label class="block mb-1 font-medium">NIM *</label>
-                <input name="nim" type="text" value="{{ old('nim') }}" class="w-full border p-2 rounded" placeholder="*********" required />
+                <input name="nim" type="text" value="{{ auth()->user()->id }}" class="w-full border p-2 rounded" readonly/>
             </div>
 
             <div>
                 <label class="block mb-1 font-medium">Nama *</label>
-                <input type="text" value="{{ old('nama') }}" class="w-full border p-2 rounded bg-gray-100"  />
+                <input 
+                    type="text"
+                    value="{{ auth()->user()->name }}"
+                    class="w-full border p-2 rounded bg-gray-100"
+                    readonly
+                />
             </div>
 
             <div class="col-span-2">

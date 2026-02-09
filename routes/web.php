@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\Mahasiswa\PengajuanController;
+use App\Http\Controllers\Admin\SuratController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,8 +21,8 @@ Route::middleware(['auth', 'role:mahasiswa'])
             return view('mahasiswa.dashboard');
         });
 
-        Route::get('/meminta-surat', [PengajuanController::class, 'index']);
         Route::post('/meminta-surat', [PengajuanController::class, 'store'])->name('mahasiswa.meminta-surat.store');
+        Route::get('/meminta-surat', [PengajuanController::class, 'index'])->name('mahasiswa.meminta-surat');
 });
 
 Route::middleware(['auth', 'role:dosen'])->prefix('dosen')->group(function () {
@@ -38,12 +39,7 @@ Route::middleware(['auth', 'role:admin|superAdmin'])
             return view('admin.dashboard');
         });
 
-        Route::get('/surat', function () {
-            return view('admin.surat');
-        });
-
         Route::middleware('role:superAdmin')->group(function () {
-
             // Route user
             Route::get('users', [UserController::class, 'index'])
                 ->name('admin.users.index');
@@ -78,9 +74,15 @@ Route::middleware(['auth', 'role:admin|superAdmin'])
 
             Route::delete('/roles/{id}', [RoleController::class, 'destroy'])
                 ->name('admin.roles.destroy');
+
+            // Route Surat
+
+            Route::get('/surat', [SuratController::class, 'index'])->name('admin.surat.index');
+
+            Route::get('/surat/{id}/store', [SuratController::class, 'store'])->name('admin.surat.store');
         });
     }
-    );
+);
 
 Route::view('/register', 'auth.register')->name('register');
 Route::post('/register', Register::class)->name('register.submit');

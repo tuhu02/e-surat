@@ -26,7 +26,7 @@
             @can('manajemen role')
             <a href="/admin/roles/"> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa fa-user-shield pr-2 w-5"></i>Role</p> </a>
             @endcan
-            <a href=""> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa-solid fa-envelope w-5"></i>Surat</p> </a>
+            <a href="/admin/surat/"> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa-solid fa-envelope w-5"></i>Surat</p> </a>
         @endrole
 
         @role('mahasiswa')
