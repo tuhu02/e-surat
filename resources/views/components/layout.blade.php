@@ -12,30 +12,48 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen flex bg-base-200 font-sans">
-    <nav class="w-48 h-screen bg-base-100 flex flex-col sticky top-0">
+    <nav class="w-64 h-screen bg-base-100 flex flex-col sticky top-0">
         <div class="p-4 flex justify-center">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ9sbQDkPtqKEwo-v23VFYmgg6uZu-6SNSbg&s" class="w-20"/>
         </div>
         
-        @role('admin|superAdmin')
-        <div class="flex-1 px-4 text-center text-sm space-y-2 mt-6">
-            <a href=""> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa fa-home pr-2 w-5"></i>Dashboard</p> </a>
+        
+        <!-- MENU ADMIN -->
+        @role('admin')
+        <div class="px-4 space-y-2 mt-6">
+            <a href="#" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                <i class="fa fa-home w-5"></i> Dashboard
+            </a>
+
             @can('manajemen user')
-            <a href="/admin/users/"> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa fa-user pr-2 w-5"></i>User</p> </a>
+            <a href="/admin/users/" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                <i class="fa fa-user w-5"></i> User
+            </a>
             @endcan
+
             @can('manajemen role')
-            <a href="/admin/roles/"> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa fa-user-shield pr-2 w-5"></i>Role</p> </a>
+            <a href="/admin/roles/" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                <i class="fa fa-user-shield w-5"></i> Role
+            </a>
             @endcan
-            <a href="/admin/surat/"> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa-solid fa-envelope w-5"></i>Surat</p> </a>
-        @endrole
 
-        @role('mahasiswa')
-        <div class="flex-1 px-4 text-center text-sm space-y-2 mt-6">
-            <a href=""> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa fa-home pr-2 w-5"></i>Home</p> </a>
-            <a href="/mahasiswa/meminta-surat"> <p class="flex items-center gap-3 p-2 rounded hover:bg-base-200 cursor-pointer"><i class="fa-solid fa-envelope w-5"></i>Meminta Surat</p> </a>
-        @endrole
-
+            <a href="/admin/surat/" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                <i class="fa-solid fa-envelope w-5"></i> Surat
+            </a>
         </div>
+        @endrole
+
+        <!-- MENU MAHASISWA -->
+        @can('create.pengajuan')
+        <div class="px-4 space-y-2 mt-6 text-sm">
+            <a href="#" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                <i class="fa fa-home w-5"></i> Home
+            </a>
+            <a href="/mahasiswa/meminta-surat" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                <i class="fa-solid fa-envelope w-5"></i> Meminta Surat
+            </a>
+        </div>
+        @endcan
 
         <div class="p-4">
             @auth
@@ -62,7 +80,7 @@
         </div>
     @endif
 
-        <!-- CONTENT AREA -->
+    <!-- CONTENT AREA -->
     <div class="flex-1 flex flex-col">
         
         <main class="flex-1 container mx-auto px-4 py-8">

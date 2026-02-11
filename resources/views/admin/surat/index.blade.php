@@ -32,11 +32,14 @@
                                 Surat Pendukung
                             </th>
                             <th class="px-6 py-3 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">
+                                Status
+                            </th>
+                            <th class="px-6 py-3 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">
                                 Aksi
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200">
+                    <tbody class="divide-y divide-gray-200 text-center">
                         @forelse ($pengajuan as $index => $dataPengajuan)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -69,6 +72,10 @@
                                     @endif
                                 </td>
 
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                    {{ $dataPengajuan->status }}
+                                </td>
+
                                 <td class="px-6 py-4 whitespace-nowrap text-sm space-x-2">
                                     <a 
                                         href="{{ route('admin.users.edit', $dataPengajuan->user->id) }}"
@@ -98,7 +105,7 @@
                         @empty
                             <tr>
                                 <td colspan="5" class="text-center py-8 text-gray-500">
-                                    Tidak ada data user
+                                    Tidak ada data permintaan surat
                                 </td>
                             </tr>
                         @endforelse

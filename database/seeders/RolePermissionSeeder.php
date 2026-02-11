@@ -18,21 +18,47 @@ class RolePermissionSeeder extends Seeder
         $mahasiswa = Role::firstOrCreate(['name' => 'mahasiswa']);
         $admin = Role::firstOrCreate(['name' => 'admin']);
         $dosen = Role::firstOrCreate(['name' => 'dosen']);
-        $superAdmin = Role::firstOrCreate(['name' => 'superAdmin']);
+        $superAdmin = Role::firstOrCreate(['name' => 'super-admin']);
 
         // Create Permission
-        $memintaSurat = Permission::firstOrCreate(['name' => 'meminta surat']);
-        $membuatSurat = Permission::firstOrCreate(['name' => 'membuat surat']);
-        $ttdSurat = Permission::firstOrCreate(['name' => 'ttd surat']);
-        $manajemenUser = Permission::firstOrCreate(['name' => 'manajemen user']);
-        $manajemenRole = Permission::firstOrCreate(['name' => 'manajemen role']);
+        $createPengajuan = Permission::firstOrCreate(['name' => 'create.pengajuan']);
 
-        // Asign
-        $mahasiswa->givePermissionTo($memintaSurat);
-        $admin->givePermissionTo($membuatSurat);
-        $superAdmin->givePermissionTo($manajemenUser);
-        $superAdmin->givePermissionTo($manajemenRole);
-        $dosen->givePermissionTo($ttdSurat);
+        // permission admin
+        $readPengajuan = Permission::firstOrCreate(['name' => 'read.pengajuan']);
+        $approvePengajuan = Permission::firstOrCreate(['name' => 'approve.pengajuan']);
+        $rejectPengajuan = Permission::firstOrCreate(['name' => 'reject.pengajuan']);
+
+        // permission super admin
+        $createUser = Permission::firstOrCreate(['name' => 'create.user']);
+        $readUser = Permission::firstOrCreate(['name' => 'read.user']);
+        $updateUser = Permission::firstOrCreate(['name' => 'update.user']);
+        $deleteUser = Permission::firstOrCreate(['name' => 'delete.user']);
+
+        $createRole = Permission::firstOrCreate(['name' => 'create.role']);
+        $readRole = Permission::firstOrCreate(['name' => 'read.role']);
+        $updateRole = Permission::firstOrCreate(['name' => 'update.role']);
+        $deleteRole = Permission::firstOrCreate(['name' => 'delete.role']);
+
+
+        // give permission
+        $mahasiswa->givePermissionTo($createPengajuan);
+        
+        $admin->givePermissionTo([
+            $readPengajuan,
+            $approvePengajuan,
+            $rejectPengajuan,
+        ]);
+
+        $superAdmin->givePermissionTo([
+            $createUser,
+            $readUser,
+            $updateUser,
+            $deleteUser,
+            $createRole,
+            $readRole,
+            $updateRole,
+            $deleteRole,
+        ]);
 
     }
 }

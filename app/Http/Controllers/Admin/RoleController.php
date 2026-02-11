@@ -15,6 +15,10 @@ class RoleController extends Controller
         return view('admin.roles.index', compact('role'));
     }
 
+    public function create(){
+        return view('admin.roles.create');
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

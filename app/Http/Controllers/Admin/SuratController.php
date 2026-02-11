@@ -16,13 +16,13 @@ class SuratController extends Controller
         return view('admin.surat.index', compact('pengajuan'));
     }
 
-    public function store($id){
-        $pengajuan = Pengajuan::findOrFail($id);
+    // public function store($id){
+    //     $pengajuan = Pengajuan::findOrFail($id);
 
-        if($pengajuan){
-            return view('admin.')
-        }
-    }
+    //     if($pengajuan){
+    //         return view('admin.surat.create')
+    //     }
+    // }
 
 
 }
