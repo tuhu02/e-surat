@@ -16,57 +16,63 @@
         <div class="p-4 flex justify-center">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ9sbQDkPtqKEwo-v23VFYmgg6uZu-6SNSbg&s" class="w-20"/>
         </div>
-        
-        
-        <!-- MENU ADMIN -->
-        @role('admin')
-        <div class="px-4 space-y-2 mt-6">
-            <a href="#" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+
+        <div class="flex-1 px-4 space-y-2 mt-6">
+            <!-- MENU ADMIN -->
+            
+            @can('view.admin.dashboard')
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
                 <i class="fa fa-home w-5"></i> Dashboard
             </a>
+            @endcan
 
-            @can('manajemen user')
+            @can('view.mahasiswa.dashboard')
+            <a href="{{ route('mahasiswa.dashboard') }}" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                <i class="fa fa-home w-5"></i> Dashboard
+            </a>
+            @endcan
+
+            @can('read.user')
             <a href="/admin/users/" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
                 <i class="fa fa-user w-5"></i> User
             </a>
             @endcan
-
-            @can('manajemen role')
+            @can('read.role')
             <a href="/admin/roles/" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
                 <i class="fa fa-user-shield w-5"></i> Role
             </a>
             @endcan
-
-            <a href="/admin/surat/" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+            @can('read.pengajuan')
+            <a href="/admin/pengajuan/" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
                 <i class="fa-solid fa-envelope w-5"></i> Surat
             </a>
-        </div>
-        @endrole
+            @endcan
 
-        <!-- MENU MAHASISWA -->
-        @can('create.pengajuan')
-        <div class="px-4 space-y-2 mt-6 text-sm">
-            <a href="#" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
-                <i class="fa fa-home w-5"></i> Home
-            </a>
+            <!-- MENU MAHASISWA -->
+            @can('create.pengajuan')
             <a href="/mahasiswa/meminta-surat" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
                 <i class="fa-solid fa-envelope w-5"></i> Meminta Surat
             </a>
+            <a href="/mahasiswa/histori-pengajuan" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                <i class="fa-solid fa-clock-rotate-left w-5"></i> Histori Pengajuan
+            </a>
+            @endcan
         </div>
-        @endcan
 
-        <div class="p-4">
+        <!-- LOGOUT DI BAWAH -->
+        <div class="p-4 mt-auto">
             @auth
                 <form method="POST" action="/logout" class="inline">
                     @csrf
                     <button type="submit" class="btn btn-ghost btn-sm bg-gray-500 text-white w-full">Logout</button>
                 </form>
             @else
-                <a href="/login" class="btn btn-ghost btn-sm">Sign In</a>
-                <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Sign Up</a>
+                <a href="/login" class="btn btn-ghost btn-sm w-full">Sign In</a>
+                <a href="{{ route('register') }}" class="btn btn-primary btn-sm w-full mt-2">Sign Up</a>
             @endauth
         </div>
     </nav>
+
         
     <!-- Success Toast -->
     @if (session('success'))

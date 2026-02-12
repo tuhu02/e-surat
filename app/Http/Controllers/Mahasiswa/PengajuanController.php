@@ -37,4 +37,14 @@ class PengajuanController extends Controller
 
         return redirect()->route('mahasiswa.meminta-surat')->with('success', 'Pengajuan surat berhasil dikirim!');
     }
+
+    public function histori()
+    {
+        $pengajuan = Pengajuan::with('jenisSurat')
+            ->where('user_id', auth()->id())
+            ->latest()
+            ->get();
+
+        return view('mahasiswa.histori-pengajuan', compact('pengajuan'));
+    }
 }

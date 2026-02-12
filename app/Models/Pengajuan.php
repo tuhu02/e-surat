@@ -13,6 +13,8 @@ class Pengajuan extends Model
         'user_id',
         'jenis_surat_id',
         'berkas',
+        'status',
+        'file_surat_jadi',
     ];
 
     public function user()

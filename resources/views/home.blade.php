@@ -27,17 +27,12 @@
                         <a href="{{ route('login') }}" class="btn btn-ghost">Sign In</a>
                         <a href="{{ route('register') }}" class="btn btn-neutral">Sign Up</a>
                     @else
-                        @role('mahasiswa')
+                        @can('view.mahasiswa.dashboard')
                             <a href="/mahasiswa/dashboard" class="btn btn-primary">Dashboard</a>
-                        @endrole
                         
-                        @role('dosen')
-                            <a href="/dosen/dashboard" class="btn btn-primary">Dashboard</a>
-                        @endrole
-                        
-                        @role('admin|superAdmin')
+                        @elsecan('view.admin.dashboard')
                             <a href="/admin/dashboard" class="btn btn-primary">Dashboard</a>
-                        @endrole
+                        @endcan
                         
                         <form method="POST" action="/logout" class="inline">
                             @csrf

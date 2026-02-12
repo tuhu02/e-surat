@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>
-        Manage - User
+        Manajemen Pengajuan Surat
     </x-slot:title>
 
     <div class="container mx-auto px-4 py-6">
@@ -78,33 +78,31 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm space-x-2">
                                     <a 
-                                        href="{{ route('admin.users.edit', $dataPengajuan->user->id) }}"
+                                        href="{{ route('admin.pengajuan.create', $dataPengajuan->id) }}"
                                         class="inline-block bg-blue-500 hover:bg-blue-600 py-1.5 px-3.5 text-white rounded-lg text-sm transition"
                                     >
-                                        buatkan
+                                        Upload Surat
                                     </a>
 
                                     <form 
-                                        action="{{ route('admin.users.destroy', $dataPengajuan->user->id) }}"
+                                        action="{{ route('admin.pengajuan.decline', $dataPengajuan->id) }}"
                                         method="POST"
                                         class="inline"
-                                        onsubmit="return confirm('Yakin hapus user ini?')"
+                                        onsubmit="return confirm('Yakin decline pengajuan ini?')"
                                     >
                                         @csrf
-                                        @method('DELETE')
-
-                                        <button 
+                                        @method('PATCH') <button 
                                             type="submit"
                                             class="bg-red-500 hover:bg-red-600 py-1.5 px-3.5 text-white rounded-lg text-sm transition"
                                         >
-                                            Hapus
+                                            Decline
                                         </button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-8 text-gray-500">
+                                <td colspan="6" class="text-center py-8 text-gray-500">
                                     Tidak ada data permintaan surat
                                 </td>
                             </tr>
