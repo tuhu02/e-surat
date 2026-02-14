@@ -3,7 +3,7 @@
         Manajemen Pengajuan Surat
     </x-slot:title>
 
-    <div class="container mx-auto px-4 py-6">
+    <div class="max-w-6xl">
         <h1 class="font-bold text-2xl mb-10">Pengajuan Surat</h1>
         <div class="bg-white rounded-lg shadow-md p-6">
             @if(session('success'))
@@ -13,7 +13,7 @@
             @endif
 
             <div class="overflow-x-auto">
-                <table class="min-w-full bg-white">
+                <table class="min-w-full bg-white" id="table-pengajuan">
                     <thead class="bg-gray-100 border-b">
                         <tr>
                             <th class="px-6 py-3 text-center text-xs font-bold text-gray-700 uppercase tracking-wider">
@@ -110,6 +110,28 @@
                     </tbody>
                 </table>
             </div>
+            <div class="mt-4">
+                {{ $pengajuan->links() }}
+            </div>
         </div>
     </div>
+    <script type="module">
+        window.Echo.channel('admin-channel')
+            .listen('.PengajuanCreated', (e) => {
+                console.log('PengajuanCreated received', e);
+
+                let tableBody = document.querySelector('#table-pengajuan tbody');
+
+                let row = `
+                    <tr>
+                        <td>${e.pengajuan.id}</td>
+                        <td>${e.pengajuan.keperluan}</td>
+                        <td>${e.pengajuan.status}</td>
+                    </tr>
+                `;
+
+                tableBody.insertAdjacentHTML('afterbegin', row);
+            });
+    </script>
+
 </x-layout>

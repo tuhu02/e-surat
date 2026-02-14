@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mahasiswa;
 
 use App\Http\Controllers\Controller;
+use App\Events\PengajuanCreated;
 use App\Models\JenisSurat;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
@@ -28,12 +29,14 @@ class PengajuanController extends Controller
             $berkasPath = $request->file('berkas')->store('pengajuan', 'public');
         }
 
-            Pengajuan::create([
+            $pengajuan = Pengajuan::create([
                 'nim' => $request->nim,
                 'user_id' => auth()->id(),
                 'jenis_surat_id' => $request->jenis_surat_id,
                 'berkas' => $berkasPath,
             ]);
+
+            event(new PengajuanCreated($pengajuan));
 
         return redirect()->route('mahasiswa.meminta-surat')->with('success', 'Pengajuan surat berhasil dikirim!');
     }

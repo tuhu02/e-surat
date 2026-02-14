@@ -45,6 +45,7 @@ Route::middleware(['auth'])
 //     });
 // });
 
+
 // admin
 Route::middleware(['auth'])
     ->prefix('admin')

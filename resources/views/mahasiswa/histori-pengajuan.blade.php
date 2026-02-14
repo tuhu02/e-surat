@@ -42,7 +42,7 @@
                                     <span class="text-gray-500">-</span>
                                 @endif
                             </td>
-                            <td class="p-3 capitalize">{{ $item->status ?? 'pending' }}</td>
+                            <td id="status-{{ $item->id }}" class="p-3 capitalize">{{ $item->status ?? 'pending' }}</td>
                             <td class="p-3">
                                 @if ($item->file_surat_jadi)
                                     <a class="text-green-700 hover:underline" href="{{ asset('storage/' . $item->file_surat_jadi) }}" target="_blank">
@@ -64,4 +64,18 @@
             </table>
         </div>
     </div>
+    <script type="module">
+    window.Echo.channel('pengajuan')
+        .listen('.status-updated', (e) => {
+            console.log('Data baru:', e.pengajuan);
+
+            const jenis = e.pengajuan.jenisSurat ? e.pengajuan.jenisSurat.nama_surat : 'Tidak tersedia';
+
+            const statusEl = document.querySelector(`#status-${e.pengajuan.id}`);
+            if(statusEl) {
+                statusEl.innerText = e.pengajuan.status + ' (' + jenis + ')';
+            }
+        });
+</script>
+
 </x-layout>
