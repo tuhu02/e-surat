@@ -6,9 +6,11 @@ use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\Mahasiswa\PengajuanController;
+use App\Http\Controllers\Mahasiswa\PengajuanTtdController;
 use App\Http\Controllers\Admin\PengajuanController as AdminPengajuanController;
 use App\Http\Controllers\Admin\SuratController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return view('home');
@@ -37,6 +39,10 @@ Route::middleware(['auth'])
         Route::get('/meminta-surat', [PengajuanController::class, 'index'])->middleware('permission:create.pengajuan')->name('mahasiswa.meminta-surat');
         Route::post('/meminta-surat', [PengajuanController::class, 'store'])->middleware('permission:create.pengajuan')->name('mahasiswa.meminta-surat.store');
         Route::get('/histori-pengajuan', [PengajuanController::class, 'histori'])->middleware('permission:create.pengajuan')->name('mahasiswa.histori-pengajuan');
+
+        // Route Pengajuan TTD
+        Route::get('/pengajuan-ttd', [PengajuanTtdController::class, 'index'])->name('mahasiswa.pengajuan.ttd.index');
+        Route::post('/pengajuan-ttd', [PengajuanTtdController::class, 'store'])->name('mahasiswa.pengajuan.ttd.store');
 });
 
 // Route::middleware(['auth', 'role:dosen'])->prefix('dosen')->group(function () {
@@ -100,6 +106,7 @@ Route::middleware(['auth'])
         Route::patch('/pengajuan/{id}/decline', [AdminPengajuanController::class, 'decline'])
             ->middleware('permission:read.pengajuan')
             ->name('admin.pengajuan.decline');
+
     }
 );
 

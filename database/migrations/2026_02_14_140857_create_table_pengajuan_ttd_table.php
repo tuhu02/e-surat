@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('table_pengajuan_ttd', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pengajuan_id');
             $table->string('file_ttd')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->unsignedBigInteger('pengajuan_id');
             $table->foreign('pengajuan_id')->references('id')->on('pengajuan')->onDelete('cascade');
-            $table->foreign()
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

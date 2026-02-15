@@ -55,9 +55,13 @@
                 <i class="fa-solid fa-envelope w-5"></i> Meminta Surat
             </a>
             <a href="/mahasiswa/histori-pengajuan" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
-                <i class="fa-solid fa-clock-rotate-left w-5"></i> Histori Pengajuan
+                <i class="fa-solid fa-clock-rotate-left w-5"></i> Histori Pengajuan Surat
             </a>
             @endcan
+
+            <a href="/mahasiswa/pengajuan-ttd" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                    <i class="fa-solid fa-signature w-5"></i> Pengajuan TTD
+            </a>
         </div>
 
         <!-- LOGOUT DI BAWAH -->

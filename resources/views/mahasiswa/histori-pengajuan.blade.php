@@ -33,19 +33,28 @@
                         <tr class="border-t">
                             <td class="p-3">{{ $index + 1 }}</td>
                             <td class="p-3">{{ $item->jenisSurat->nama_surat ?? '-' }}</td>
+
                             <td class="p-3">
                                 @if ($item->berkas)
-                                    <a class="text-blue-600 hover:underline" href="{{ asset('storage/' . $item->berkas) }}" target="_blank">
+                                    <a class="text-blue-600 hover:underline"
+                                       href="{{ asset('storage/' . $item->berkas) }}"
+                                       target="_blank">
                                         Lihat
                                     </a>
                                 @else
                                     <span class="text-gray-500">-</span>
                                 @endif
                             </td>
-                            <td id="status-{{ $item->id }}" class="p-3 capitalize">{{ $item->status ?? 'pending' }}</td>
-                            <td class="p-3">
+
+                            <td id="status-{{ $item->id }}" class="p-3 capitalize">
+                                {{ $item->status ?? 'pending' }}
+                            </td>
+
+                            <td class="p-3" id="surat-jadi-{{ $item->id }}">
                                 @if ($item->file_surat_jadi)
-                                    <a class="text-green-700 hover:underline" href="{{ asset('storage/' . $item->file_surat_jadi) }}" target="_blank">
+                                    <a class="text-green-700 hover:underline"
+                                       href="{{ asset('storage/' . $item->file_surat_jadi) }}"
+                                       target="_blank">
                                         Unduh
                                     </a>
                                 @else
@@ -64,18 +73,27 @@
             </table>
         </div>
     </div>
+
     <script type="module">
-    window.Echo.channel('pengajuan')
-        .listen('.status-updated', (e) => {
-            console.log('Data baru:', e.pengajuan);
+        window.Echo.channel('pengajuan')
+            .listen('.status-updated', (e) => {
 
-            const jenis = e.pengajuan.jenisSurat ? e.pengajuan.jenisSurat.nama_surat : 'Tidak tersedia';
+                const statusEl = document.querySelector(`#status-${e.pengajuan.id}`);
+                const suratEl = document.querySelector(`#surat-jadi-${e.pengajuan.id}`);
 
-            const statusEl = document.querySelector(`#status-${e.pengajuan.id}`);
-            if(statusEl) {
-                statusEl.innerText = e.pengajuan.status + ' (' + jenis + ')';
-            }
-        });
-</script>
+                if (statusEl) {
+                    statusEl.innerText = e.pengajuan.status;
+                }
 
+                if (suratEl && e.pengajuan.file_surat_jadi) {
+                    suratEl.innerHTML = `
+                        <a class="text-green-700 hover:underline"
+                           href="/storage/${e.pengajuan.file_surat_jadi}"
+                           target="_blank">
+                            Unduh
+                        </a>
+                    `;
+                }
+            });
+    </script>
 </x-layout>

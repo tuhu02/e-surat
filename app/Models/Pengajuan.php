@@ -26,4 +26,9 @@ class Pengajuan extends Model
     {
         return $this->belongsTo(JenisSurat::class);
     }
+
+    public function pengajuanTtd()
+    {
+        return $this->hasOne(PengajuanTtd::class, 'pengajuan_id');
+    }
 }
