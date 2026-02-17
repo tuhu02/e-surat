@@ -33,6 +33,12 @@
             </a>
             @endcan
 
+            @can('view.dosen.dashboard')
+            <a href="{{ route('dosen.dashboard') }}" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                <i class="fa fa-home w-5"></i> Dashboard
+            </a>
+            @endcan
+
             @can('read.user')
             <a href="/admin/users/" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
                 <i class="fa fa-user w-5"></i> User
@@ -59,9 +65,23 @@
             </a>
             @endcan
 
+            @can('create.pengajuan.ttd')
             <a href="/mahasiswa/pengajuan-ttd" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
                     <i class="fa-solid fa-signature w-5"></i> Pengajuan TTD
             </a>
+            @endcan
+
+            <!-- dosen -->
+            @can('read.pengajuan.ttd')
+            <a href="/mahasiswa/pengajuan-ttd" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                    <i class="fa-solid fa-signature w-5"></i> Histori Pengajuan TTD
+            </a>
+            @endcan
+
+            <a href="{{ route('dosen.pengajuan.index') }}" class="flex items-center gap-3 p-2 rounded hover:bg-base-200">
+                    <i class="fa-solid fa-signature w-5"></i> Permintaan Pengajuan TTD
+            </a>
+
         </div>
 
         <!-- LOGOUT DI BAWAH -->

@@ -14,6 +14,7 @@ class PengajuanTtd extends Model
         'pengajuan_id',
         'user_id',
         'status',
+        'dosen_id'
     ];
 
     public function pengajuan()

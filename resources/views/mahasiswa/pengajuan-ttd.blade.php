@@ -40,9 +40,12 @@
                 </div>
 
                 <div>
-                    <label class="block mb-1 font-medium">Berkas Pendukung (opsional)</label>
-                    <input type="file" class="w-full border p-2 rounded" />
-                    <p class="text-xs text-gray-500 mt-1">Format: PDF, DOC, DOCX, JPG, PNG (Max: 2MB)</p>
+                    <label class="block mb-1 font-medium">Dosen *</label>
+                    <select name="dosen" id="" class="w-full border p-2 rounded">
+                        @foreach($dosen as $d)
+                        <option value="{{ $d->id }}">{{ $d->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <button type="submit" class="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded">
