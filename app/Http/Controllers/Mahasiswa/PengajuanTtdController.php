@@ -11,13 +11,15 @@ use App\Models\User;
 
 class PengajuanTtdController extends Controller
 {
-    public function index(){
-        $pengajuan = Pengajuan::with(['user', 'jenisSurat'])->where('user_id',auth()->id())->where('status', 'diterima')->get();
+    public function index()
+    {
+        $pengajuan = Pengajuan::with(['user', 'jenisSurat'])->where('user_id', auth()->id())->where('status', 'diterima')->get();
         $dosen = User::role('dosen')->get();
-        return view('mahasiswa.pengajuan-ttd',compact('pengajuan','dosen'));
+        return view('mahasiswa.pengajuan-ttd', compact('pengajuan', 'dosen'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'pengajuan_id' => 'required|exists:pengajuan,id',
         ]);
@@ -35,5 +37,15 @@ class PengajuanTtdController extends Controller
         ]);
 
         return redirect()->route('mahasiswa.pengajuan.ttd.index')->with('success', 'Tanda tangan berhasil disimpan.');
+    }
+
+    public function historiTtd()
+    {
+        $pengajuanTtd = PengajuanTtd::with(['pengajuan.jenisSurat', 'pengajuan.user'])
+            ->where('user_id', auth()->id())
+            ->latest()
+            ->get();
+
+        return view('mahasiswa.histori-pengajuan-ttd', compact('pengajuanTtd'));
     }
 }

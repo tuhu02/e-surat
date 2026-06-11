@@ -29,14 +29,14 @@ class PengajuanController extends Controller
             $berkasPath = $request->file('berkas')->store('pengajuan', 'public');
         }
 
-            $pengajuan = Pengajuan::create([
-                'nim' => $request->nim,
-                'user_id' => auth()->id(),
-                'jenis_surat_id' => $request->jenis_surat_id,
-                'berkas' => $berkasPath,
-            ]);
+        $pengajuan = Pengajuan::create([
+            'nim' => $request->nim,
+            'user_id' => auth()->id(),
+            'jenis_surat_id' => $request->jenis_surat_id,
+            'berkas' => $berkasPath,
+        ]);
 
-            event(new PengajuanCreated($pengajuan));
+        event(new PengajuanCreated($pengajuan));
 
         return redirect()->route('mahasiswa.meminta-surat')->with('success', 'Pengajuan surat berhasil dikirim!');
     }

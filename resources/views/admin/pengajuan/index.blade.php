@@ -116,22 +116,77 @@
         </div>
     </div>
     <script type="module">
-        window.Echo.channel('admin-channel')
-            .listen('.PengajuanCreated', (e) => {
-                console.log('PengajuanCreated received', e);
+        document.addEventListener('DOMContentLoaded', () => {
+            window.Echo.channel('admin-channel')
+                .listen('.PengajuanCreated', (e) => {
 
-                let tableBody = document.querySelector('#table-pengajuan tbody');
+                    console.log('PengajuanCreated received', e);
 
-                let row = `
-                    <tr>
-                        <td>${e.pengajuan.id}</td>
-                        <td>${e.pengajuan.keperluan}</td>
-                        <td>${e.pengajuan.status}</td>
-                    </tr>
-                `;
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content.value;
 
-                tableBody.insertAdjacentHTML('afterbegin', row);
+                    const pengajuan = e.pengajuan;
+                    if (!pengajuan) return;
+
+                    const tableBody = document.querySelector('#table-pengajuan tbody');
+                    if (!tableBody) return;
+
+                    const row = `
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 text-sm text-gray-900">
+                                Baru
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-gray-900">
+                                ${pengajuan.nim}
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-gray-600">
+                                ${pengajuan.user?.name ?? '-'}
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-gray-600">
+                                ${pengajuan.jenis_surat?.nama_surat ?? '-'}
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-gray-600">
+                                ${pengajuan.berkas 
+                                    ? `<a href="/storage/${pengajuan.berkas}" target="_blank"
+                                        class="inline-flex items-center px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 text-xs font-medium rounded transition">
+                                        Lihat Berkas
+                                    </a>`
+                                    : `<span class="text-red-400">Tidak ada file</span>`
+                                }
+                            </td>
+
+                            <td class="px-6 py-4 text-sm text-gray-600">
+                                ${pengajuan.status ?? 'pending'}
+                            </td>
+
+                            <td class="px-6 py-4 text-sm">
+                                <a href="/admin/pengajuan/${pengajuan.id}/create"
+                                class="inline-block bg-blue-500 hover:bg-blue-600 py-1.5 px-3.5 text-white rounded-lg text-sm transition">
+                                    Upload Surat
+                                </a>
+                                <form action="/admin/pengajuan/${pengajuan.id}/decline"
+                                  method="POST"
+                                  class="inline"
+                                  onsubmit="return confirm('Yakin decline pengajuan ini?')">
+
+                                <input type="hidden" name="_token" value="${csrfToken}">
+                                <input type="hidden" name="_method" value="PATCH">
+
+                                <button type="submit"
+                                    class="bg-red-500 hover:bg-red-600 py-1.5 px-3.5 text-white rounded-lg text-sm transition">
+                                    Decline
+                                </button>
+                            </form>
+                            </td>
+                        </tr>
+                    `;
+
+                    tableBody.insertAdjacentHTML('afterbegin', row);
             });
+        });
     </script>
 
 </x-layout>

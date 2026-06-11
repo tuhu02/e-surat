@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="lofi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="min-h-screen bg-base-200 font-sans">
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-12">
@@ -17,6 +19,9 @@
             <div class="hero-content flex-col">
                 <div class="card w-96 bg-base-100 shadow-xl">
                     <div class="card-body">
+                        <div class="flex justify-center mb-4">
+                            <img src="/logo/logo.png" class="w-16" alt="Logo" />
+                        </div>
                         <h1 class="text-3xl font-bold text-center mb-6">Welcome Back</h1>
 
                         <form method="POST" action="{{ route('login.submit') }}">
@@ -25,41 +30,41 @@
                             <!-- Email -->
                             <label class="floating-label mb-6">
                                 <input type="email"
-                                       name="email"
-                                       placeholder="mail@example.com"
-                                       value="{{ old('email') }}"
-                                       class="input input-bordered @error('email') input-error @enderror"
-                                       required
-                                       autofocus>
+                                    name="email"
+                                    placeholder="mail@example.com"
+                                    value="{{ old('email') }}"
+                                    class="input input-bordered @error('email') input-error @enderror"
+                                    required
+                                    autofocus>
                                 <span>Email</span>
                             </label>
                             @error('email')
-                                <div class="label -mt-4 mb-2">
-                                    <span class="label-text-alt text-error">{{ $message }}</span>
-                                </div>
+                            <div class="label -mt-4 mb-2">
+                                <span class="label-text-alt text-error">{{ $message }}</span>
+                            </div>
                             @enderror
 
                             <!-- Password -->
                             <label class="floating-label mb-6">
                                 <input type="password"
-                                       name="password"
-                                       placeholder="••••••••"
-                                       class="input input-bordered @error('password') input-error @enderror"
-                                       required>
+                                    name="password"
+                                    placeholder="••••••••"
+                                    class="input input-bordered @error('password') input-error @enderror"
+                                    required>
                                 <span>Password</span>
                             </label>
                             @error('password')
-                                <div class="label -mt-4 mb-2">
-                                    <span class="label-text-alt text-error">{{ $message }}</span>
-                                </div>
+                            <div class="label -mt-4 mb-2">
+                                <span class="label-text-alt text-error">{{ $message }}</span>
+                            </div>
                             @enderror
 
                             <!-- Remember Me -->
                             <div class="form-control mt-4">
                                 <label class="label cursor-pointer justify-start">
                                     <input type="checkbox"
-                                           name="remember"
-                                           class="checkbox">
+                                        name="remember"
+                                        class="checkbox">
                                     <span class="label-text ml-2">Remember me</span>
                                 </label>
                             </div>
@@ -84,4 +89,5 @@
     </main>
 
 </body>
+
 </html>

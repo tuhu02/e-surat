@@ -28,6 +28,7 @@ class PengajuanStatusUpdated implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
+            new PrivateChannel('surat.'.$this->pengajuan->user_id),
             new Channel('pengajuan'),
         ];
     }
@@ -35,5 +36,16 @@ class PengajuanStatusUpdated implements ShouldBroadcastNow
     public function broadcastAs(): string
     {
         return 'status-updated';
+    }
+
+    public function broadcastWith(): array
+    {
+        return [
+            'pengajuan_id' => $this->pengajuan->id,
+            'status' => $this->pengajuan->status,
+            'jenis_surat' => $this->pengajuan->jenisSurat?->nama_surat,
+            'user_id' => $this->pengajuan->user_id,
+            'updated_at' => $this->pengajuan->updated_at?->toIso8601String(),
+        ];
     }
 }

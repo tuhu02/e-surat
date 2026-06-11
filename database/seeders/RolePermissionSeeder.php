@@ -28,6 +28,18 @@ class RolePermissionSeeder extends Seeder
         $approvePengajuan = Permission::firstOrCreate(['name' => 'approve.pengajuan']);
         $rejectPengajuan = Permission::firstOrCreate(['name' => 'reject.pengajuan']);
 
+        // permission dosen
+        $viewDosenDashboard = Permission::firstOrCreate(['name' => 'view.dosen.dashboard']);
+        $viewPermintaanTtd = Permission::firstOrCreate(['name' => 'view.permintaan.ttd']);
+
+        // permission mahasiswa
+        $viewMahasiswaDashboard = Permission::firstOrCreate(['name' => 'view.mahasiswa.dashboard']);
+        $createPengajuanTtd = Permission::firstOrCreate(['name' => 'create.pengajuan.ttd']);
+        $readPengajuanTtd = Permission::firstOrCreate(['name' => 'read.pengajuan.ttd']);
+
+        // permission admin
+        $viewAdminDashboard = Permission::firstOrCreate(['name' => 'view.admin.dashboard']);
+
         // permission super admin
         $createUser = Permission::firstOrCreate(['name' => 'create.user']);
         $readUser = Permission::firstOrCreate(['name' => 'read.user']);
@@ -41,12 +53,25 @@ class RolePermissionSeeder extends Seeder
 
 
         // give permission
-        $mahasiswa->givePermissionTo($createPengajuan);
-        
+        $mahasiswa->givePermissionTo([
+            $createPengajuan,
+            $viewMahasiswaDashboard,
+            $createPengajuanTtd,
+            $readPengajuanTtd,
+        ]);
+
+        $dosen->givePermissionTo([
+            $viewDosenDashboard,
+            $viewPermintaanTtd,
+        ]);
+
         $admin->givePermissionTo([
+            $viewAdminDashboard,
             $readPengajuan,
             $approvePengajuan,
             $rejectPengajuan,
+            $readUser,
+            $readRole,
         ]);
 
         $superAdmin->givePermissionTo([
@@ -59,6 +84,5 @@ class RolePermissionSeeder extends Seeder
             $updateRole,
             $deleteRole,
         ]);
-
     }
 }
